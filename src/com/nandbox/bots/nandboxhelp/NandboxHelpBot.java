@@ -16,7 +16,7 @@ import com.nandbox.inmessages.ChatMember;
 import com.nandbox.inmessages.ChatMenuCallback;
 import com.nandbox.inmessages.IncomingMessage;
 import com.nandbox.inmessages.InlineMessageCallback;
-import com.nandbox.inmessages.MyProfile;
+import com.nandbox.inmessages.Profile;
 import com.nandbox.util.Utils;
 
 import net.minidev.json.JSONObject;
@@ -62,16 +62,6 @@ public class NandboxHelpBot {
 
 			@Override
 			public void onMessagAckCallback(JSONObject obj) {
-			}
-
-			@Override
-			public void onUserJoinedBot(JSONObject obj) {
-				sendBotMenuWithNavigationButton(String.valueOf(obj.get("user_id")));
-			}
-
-			@Override
-			public void userStartedBot(JSONObject obj) {
-				sendBotMenuWithNavigationButton(String.valueOf(obj.get("user_id")));
 			}
 
 			@Override
@@ -122,15 +112,45 @@ public class NandboxHelpBot {
 			public void onChatMember(ChatMember chatMember) {
 			}
 
-			@Override
-			public void onMyProfile(MyProfile myprofile) {
-			}
-
 			private void sendBotMenuWithNavigationButton(String chatId) {
 				Utils utils = new Utils();
 				utils.setNavigationButton(chatId, MAIN_MENU_REF, api);
 				MenuHelper utility = new MenuHelper();
 				api.send(utility.createMainMenu(chatId));
+			}
+
+			@Override
+			public void onMyProfile(Profile user) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onUser(Profile user) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onUserJoinedBot(Profile user) {
+				sendBotMenuWithNavigationButton(user.getUser().getId());
+			}
+
+			@Override
+			public void userLeftBot(Profile user) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void userStartedBot(Profile user) {
+				sendBotMenuWithNavigationButton(user.getUser().getId());				
+			}
+
+			@Override
+			public void userStoppedBot(Profile user) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		});
