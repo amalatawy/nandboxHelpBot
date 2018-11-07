@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.nandbox.Nandbox;
-import com.nandbox.NandboxClient;
+import com.nandbox.bots.api.Nandbox;
+import com.nandbox.bots.api.NandboxClient;
 import com.nandbox.bots.nandboxhelp.util.Constant;
 import com.nandbox.bots.nandboxhelp.util.MenuHelper;
-import com.nandbox.inmessages.ChatAdministrators;
-import com.nandbox.inmessages.ChatMember;
-import com.nandbox.inmessages.ChatMenuCallback;
-import com.nandbox.inmessages.IncomingMessage;
-import com.nandbox.inmessages.InlineMessageCallback;
-import com.nandbox.inmessages.Profile;
-import com.nandbox.util.Utils;
+import com.nandbox.bots.api.inmessages.ChatAdministrators;
+import com.nandbox.bots.api.inmessages.ChatMember;
+import com.nandbox.bots.api.inmessages.ChatMenuCallback;
+import com.nandbox.bots.api.inmessages.IncomingMessage;
+import com.nandbox.bots.api.inmessages.InlineMessageCallback;
+import com.nandbox.bots.api.inmessages.Profile;
+import com.nandbox.bots.api.util.Utils;
 
 import net.minidev.json.JSONObject;
 

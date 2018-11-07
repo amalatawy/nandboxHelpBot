@@ -2,10 +2,10 @@ package com.nandbox.bots.nandboxhelp.util;
 
 import java.util.ArrayList;
 
-import com.nandbox.data.Button;
-import com.nandbox.data.Menu;
-import com.nandbox.data.Row;
-import com.nandbox.outmessages.ChatMenuOutMessage;
+import com.nandbox.bots.api.data.Button;
+import com.nandbox.bots.api.data.Menu;
+import com.nandbox.bots.api.data.Row;
+import com.nandbox.bots.api.outmessages.ChatMenuOutMessage;
 
 public class MenuHelper {
 

@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="lib/httpcore-4.4.6.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-all-9.3.18.v20170406-uber.jar"/>
 	<classpathentry kind="lib" path="lib/json-smart-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/nandboxbotclient.jar"/>
+	<classpathentry kind="lib" path="lib/nandboxbotapi.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
