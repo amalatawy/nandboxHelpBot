@@ -116,19 +116,16 @@ public class NandboxHelpBot {
 				Utils utils = new Utils();
 				utils.setNavigationButton(chatId, MAIN_MENU_REF, api);
 				MenuHelper utility = new MenuHelper();
-				api.send(utility.createMainMenu(chatId));
+				api.send(utility.createMainMenuMessage(chatId));
 			}
 
 			@Override
 			public void onMyProfile(Profile user) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public void onUser(Profile user) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
@@ -138,7 +135,6 @@ public class NandboxHelpBot {
 
 			@Override
 			public void userLeftBot(Profile user) {
-				// TODO Auto-generated method stub
 				
 			}
 
@@ -149,8 +145,7 @@ public class NandboxHelpBot {
 
 			@Override
 			public void userStoppedBot(Profile user) {
-				// TODO Auto-generated method stub
-				
+			
 			}
 
 		});
