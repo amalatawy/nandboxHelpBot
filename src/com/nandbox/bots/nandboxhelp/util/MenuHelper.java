@@ -15,7 +15,7 @@ public class MenuHelper {
 	private static final String CHANNELS_MENU_REF = "ChannelsMenu";
 	private static final String STICKERS_MENU_REF = "StickersMenu";
 
-	public ChatMenuOutMessage createMainMenu(String chatId) {
+	public ChatMenuOutMessage createMainMenuMessage(String chatId) {
 
 		ChatMenuOutMessage setChatMainMenuMsg = new ChatMenuOutMessage();
 		Button channelsBtn = createButton("Channels and Groups", "channelsCB", 1, "#b8e986", "Black", null,

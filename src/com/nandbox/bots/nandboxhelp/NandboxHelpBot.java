@@ -54,6 +54,7 @@ public class NandboxHelpBot {
 			@Override
 			public void onReceive(IncomingMessage incomingMsg) {
 				sendBotMenuWithNavigationButton(incomingMsg.getChat().getId());
+				api.sendText(incomingMsg.getChat().getId(), "Please use Bot Menu");
 			}
 
 			@Override
