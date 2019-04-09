@@ -1,11 +1,19 @@
 package com.nandbox.bots.nandboxhelp.util;
 
+import static com.nandbox.bots.nandboxhelp.util.Constant.CREATE_CHANNEL_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.CREATE_GROUP_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.DELETE_GROUP_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.DOWNLOAD_STICKERS_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.RECALL_MSG_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.SHARE_LOCATION_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.USE_STICKERS_MEDIA_LINK;
+
 import java.util.ArrayList;
 
 import com.nandbox.bots.api.data.Button;
 import com.nandbox.bots.api.data.Menu;
 import com.nandbox.bots.api.data.Row;
-import com.nandbox.bots.api.outmessages.ChatMenuOutMessage;
+import com.nandbox.bots.api.outmessages.SetChatMenuOutMessage;
 
 public class MenuHelper {
 
@@ -15,18 +23,18 @@ public class MenuHelper {
 	private static final String CHANNELS_MENU_REF = "ChannelsMenu";
 	private static final String STICKERS_MENU_REF = "StickersMenu";
 
-	public ChatMenuOutMessage createMainMenuMessage(String chatId) {
+	public SetChatMenuOutMessage createMainMenuMessage(String chatId) {
 
-		ChatMenuOutMessage setChatMainMenuMsg = new ChatMenuOutMessage();
+		SetChatMenuOutMessage setChatMainMenuMsg = new SetChatMenuOutMessage();
 		Button channelsBtn = createButton("Channels and Groups", "channelsCB", 1, "#b8e986", "Black", null,
-				CHANNELS_MENU_REF);
-		Button stickersBtn = createButton("Stickers", "stickersCB", 2, "#b8e986", "Black", null, STICKERS_MENU_REF);
+				CHANNELS_MENU_REF, null);
+		Button stickersBtn = createButton("Stickers", "stickersCB", 2, "#b8e986", "Black", null, STICKERS_MENU_REF,
+				null);
 		Button recallMsgBtn = createButton("Recall Message", "RecallMessageCB", 3, "#b8e986", "Black", null,
-				MAIN_MENU_REF);
+				MAIN_MENU_REF, RECALL_MSG_MEDIA_LINK);
 		Button shareLocationBtn = createButton("Share Location", "ShareLocationCB", 4, "#b8e986", "Black", null,
-				MAIN_MENU_REF);
-		Button faqBtn = createButton("FAQ", "FAQCB", 5, "#29ba65", "white", null, MAIN_MENU_REF);
-		faqBtn.setButtonURL(FAQ_LINK);
+				MAIN_MENU_REF, SHARE_LOCATION_MEDIA_LINK);
+		Button faqBtn = createButton("FAQ", "FAQCB", 5, "#29ba65", "white", null, MAIN_MENU_REF, FAQ_LINK);
 		ArrayList<Menu> mainMenus = new ArrayList<Menu>();
 		Row firstRow = new Row();
 		firstRow.setRowOrder(1);
@@ -48,6 +56,7 @@ public class MenuHelper {
 		return setChatMainMenuMsg;
 
 	}
+
 	private Menu createChannelsSubMenus() {
 
 		Menu channelsMenu = new Menu();
@@ -57,15 +66,15 @@ public class MenuHelper {
 		Row backRow = new Row();
 
 		Button createChannelBtn = createButton("Create Channel", "CreateChannelCB", 1, "#478de5", "White", null,
-				CHANNELS_MENU_REF);
+				CHANNELS_MENU_REF, CREATE_CHANNEL_MEDIA_LINK);
 
 		Button createGroupBtn = createButton("Create Group", "CreateGroupCB", 2, "#478de5", "White", null,
-				CHANNELS_MENU_REF);
+				CHANNELS_MENU_REF, CREATE_GROUP_MEDIA_LINK);
 
 		Button deleteGroupBtn = createButton("Delete Group", "DeleteGroupCB", 3, "#478de5", "White", null,
-				CHANNELS_MENU_REF);
+				CHANNELS_MENU_REF, DELETE_GROUP_MEDIA_LINK);
 
-		Button backBtn = createButton("Back", "BackCB", 4, "#33649d", "White", null, MAIN_MENU_REF);
+		Button backBtn = createButton("Back", "BackCB", 4, "#33649d", "White", null, MAIN_MENU_REF, null);
 		firstRow.setButtons(new Button[] { createChannelBtn, createGroupBtn });
 		secondRow.setButtons(new Button[] { deleteGroupBtn });
 		backRow.setButtons(new Button[] { backBtn });
@@ -80,18 +89,18 @@ public class MenuHelper {
 		Row row = new Row();
 		Row backRow = new Row();
 		Button useStickersBtn = createButton("Use Stickers", "UseStickersCB", 1, "#edad43", "White", null,
-				STICKERS_MENU_REF);
+				STICKERS_MENU_REF, USE_STICKERS_MEDIA_LINK);
 		Button downloadStickersBtn = createButton("Download Stickers", "DownloadStickersCB", 2, "#edad43", "White",
-				null, STICKERS_MENU_REF);
-		Button backBtn = createButton("Back", "BackCB", 3, "#bd7700", "White", null, MAIN_MENU_REF);
+				null, STICKERS_MENU_REF, DOWNLOAD_STICKERS_MEDIA_LINK);
+		Button backBtn = createButton("Back", "BackCB", 3, "#bd7700", "White", null, MAIN_MENU_REF, null);
 		row.setButtons(new Button[] { useStickersBtn, downloadStickersBtn });
 		backRow.setButtons(new Button[] { backBtn });
 		stickersMenu.setRows(new Row[] { row, backRow });
 		return stickersMenu;
 	}
-	
-	private Button createButton(String label, String callback, int order, String bgColor, String txtColor,
-			String buttonQuery, String nextMenuRef) {
+
+	public Button createButton(String label, String callback, int order, String bgColor, String txtColor,
+			String buttonQuery, String nextMenuRef, String buttonURL) {
 		Button btn = new Button();
 		btn.setButtonLabel(label);
 		btn.setButtonOrder(order);
@@ -100,6 +109,7 @@ public class MenuHelper {
 		btn.setButtonTextColor(txtColor);
 		btn.setButtonQuery(buttonQuery);
 		btn.setNextMenu(nextMenuRef);
+		btn.setButtonURL(buttonURL);
 		return btn;
 	}
 

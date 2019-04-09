@@ -1,5 +1,12 @@
 package com.nandbox.bots.nandboxhelp;
 
+import static com.nandbox.bots.nandboxhelp.util.Constant.CREATE_CHANNEL_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.CREATE_GROUP_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.DELETE_GROUP_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.DOWNLOAD_STICKERS_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.RECALL_MSG_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.SHARE_LOCATION_MEDIA_LINK;
+import static com.nandbox.bots.nandboxhelp.util.Constant.USE_STICKERS_MEDIA_LINK;
 import static com.nandbox.bots.nandboxhelp.util.MenuHelper.MAIN_MENU_REF;
 
 import java.io.FileInputStream;
@@ -9,15 +16,18 @@ import java.util.Properties;
 
 import com.nandbox.bots.api.Nandbox;
 import com.nandbox.bots.api.NandboxClient;
-import com.nandbox.bots.nandboxhelp.util.Constant;
-import com.nandbox.bots.nandboxhelp.util.MenuHelper;
+import com.nandbox.bots.api.data.Chat;
+import com.nandbox.bots.api.data.User;
 import com.nandbox.bots.api.inmessages.ChatAdministrators;
 import com.nandbox.bots.api.inmessages.ChatMember;
 import com.nandbox.bots.api.inmessages.ChatMenuCallback;
 import com.nandbox.bots.api.inmessages.IncomingMessage;
 import com.nandbox.bots.api.inmessages.InlineMessageCallback;
-import com.nandbox.bots.api.inmessages.Profile;
+import com.nandbox.bots.api.inmessages.InlineSearch;
+import com.nandbox.bots.api.inmessages.MessageAck;
+import com.nandbox.bots.api.inmessages.PermanentUrl;
 import com.nandbox.bots.api.util.Utils;
+import com.nandbox.bots.nandboxhelp.util.MenuHelper;
 
 import net.minidev.json.JSONObject;
 
@@ -62,10 +72,6 @@ public class NandboxHelpBot {
 			}
 
 			@Override
-			public void onMessagAckCallback(JSONObject obj) {
-			}
-
-			@Override
 			public void onChatMenuCallBack(ChatMenuCallback chatMenuCallback) {
 				System.out.println(chatMenuCallback.toJsonObject());
 				String chatId = chatMenuCallback.getChat().getId();
@@ -73,35 +79,44 @@ public class NandboxHelpBot {
 				// Group And Channel
 
 				if (chatMenuCallback.getButtonCallback().equals("CreateChannelCB")) {
-					api.sendVideo(chatId, Constant.CREATE_CHANNEL_MEDIA_ID, "How to create a channel.");
+
+					api.sendText(chatId, CREATE_CHANNEL_MEDIA_LINK);
+
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("CreateGroupCB")) {
-					api.sendVideo(chatId, Constant.CREATE_GROUP_MEDIA_ID, "How to create a group.");
+
+					api.sendText(chatId, CREATE_GROUP_MEDIA_LINK);
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("DeleteGroupCB")) {
-					api.sendVideo(chatId, Constant.DELETE_GROUP_MEDIA_ID, "How to delete a group or channel.");
+
+					api.sendText(chatId, DELETE_GROUP_MEDIA_LINK);
 				}
 
 				// Stickers
 				if (chatMenuCallback.getButtonCallback().equals("UseStickersCB")) {
-					api.sendVideo(chatId, Constant.USE_STICKERS_MEDIA_ID, "How to use and send stickers");
+
+					api.sendText(chatId, USE_STICKERS_MEDIA_LINK);
+
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("DownloadStickersCB")) {
-					api.sendVideo(chatId, Constant.DOWNLOAD_STICKERS_MEDIA_ID, "How to download a sticker package.");
+
+					api.sendText(chatId, DOWNLOAD_STICKERS_MEDIA_LINK);
 
 				}
 
 				// Recall
 				if (chatMenuCallback.getButtonCallback().equals("RecallMessageCB")) {
-					api.sendVideo(chatId, Constant.RECALL_MSG_MEDIA_ID, "How to recall a message");
+
+					api.sendText(chatId, RECALL_MSG_MEDIA_LINK);
 				}
 
 				// ShareLocation
 				if (chatMenuCallback.getButtonCallback().equals("ShareLocationCB")) {
-					api.sendVideo(chatId, Constant.SHARE_LOCATION_MEDIA_ID, "How to share your location.");
+
+					api.sendText(chatId, SHARE_LOCATION_MEDIA_LINK);
 				}
 			}
 
@@ -121,32 +136,63 @@ public class NandboxHelpBot {
 			}
 
 			@Override
-			public void onMyProfile(Profile user) {
-				
+			public void onChatDetails(Chat chat) {
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
-			public void onUser(Profile user) {
+			public void onInlineSearh(InlineSearch inlineSearch) {
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
-			public void onUserJoinedBot(Profile user) {
-				sendBotMenuWithNavigationButton(user.getUser().getId());
+			public void onMessagAckCallback(MessageAck msgAck) {
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
-			public void userLeftBot(Profile user) {
-				
+			public void onMyProfile(User user) {
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
-			public void userStartedBot(Profile user) {
-				sendBotMenuWithNavigationButton(user.getUser().getId());				
+			public void onUserDetails(User user) {
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
-			public void userStoppedBot(Profile user) {
-			
+			public void onUserJoinedBot(User user) {
+				sendBotMenuWithNavigationButton(user.getId());
+
+			}
+
+			@Override
+			public void permanentUrl(PermanentUrl permenantUrl) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void userLeftBot(User user) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void userStartedBot(User user) {
+				sendBotMenuWithNavigationButton(user.getId());
+
+			}
+
+			@Override
+			public void userStoppedBot(User user) {
+				// TODO Auto-generated method stub
+
 			}
 
 		});
