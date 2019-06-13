@@ -28,12 +28,20 @@ public class MenuHelper {
 		SetChatMenuOutMessage setChatMainMenuMsg = new SetChatMenuOutMessage();
 		Button channelsBtn = createButton("Channels and Groups", "channelsCB", 1, "#b8e986", "Black", null,
 				CHANNELS_MENU_REF, null);
+		channelsBtn.setButtonIcon("ic_outline_rss_feed_24dp");
+
 		Button stickersBtn = createButton("Stickers", "stickersCB", 2, "#b8e986", "Black", null, STICKERS_MENU_REF,
 				null);
+		stickersBtn.setButtonIcon("ic_mood_24dp");
+
 		Button recallMsgBtn = createButton("Recall Message", "RecallMessageCB", 3, "#b8e986", "Black", null,
 				MAIN_MENU_REF, RECALL_MSG_MEDIA_LINK);
+		recallMsgBtn.setButtonIcon("ic_delete_forever_24dp");
+
 		Button shareLocationBtn = createButton("Share Location", "ShareLocationCB", 4, "#b8e986", "Black", null,
 				MAIN_MENU_REF, SHARE_LOCATION_MEDIA_LINK);
+		shareLocationBtn.setButtonIcon("ic_room_24dp");
+
 		Button faqBtn = createButton("FAQ", "FAQCB", 5, "#29ba65", "white", null, MAIN_MENU_REF, FAQ_LINK);
 		ArrayList<Menu> mainMenus = new ArrayList<Menu>();
 		Row firstRow = new Row();
