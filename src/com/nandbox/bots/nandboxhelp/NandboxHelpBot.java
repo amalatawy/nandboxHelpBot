@@ -18,6 +18,7 @@ import com.nandbox.bots.api.Nandbox;
 import com.nandbox.bots.api.NandboxClient;
 import com.nandbox.bots.api.data.Chat;
 import com.nandbox.bots.api.data.User;
+import com.nandbox.bots.api.inmessages.BlackList;
 import com.nandbox.bots.api.inmessages.ChatAdministrators;
 import com.nandbox.bots.api.inmessages.ChatMember;
 import com.nandbox.bots.api.inmessages.ChatMenuCallback;
@@ -26,6 +27,7 @@ import com.nandbox.bots.api.inmessages.InlineMessageCallback;
 import com.nandbox.bots.api.inmessages.InlineSearch;
 import com.nandbox.bots.api.inmessages.MessageAck;
 import com.nandbox.bots.api.inmessages.PermanentUrl;
+import com.nandbox.bots.api.inmessages.WhiteList;
 import com.nandbox.bots.api.util.Utils;
 import com.nandbox.bots.nandboxhelp.util.MenuHelper;
 
@@ -129,10 +131,11 @@ public class NandboxHelpBot {
 			}
 
 			private void sendBotMenuWithNavigationButton(String chatId) {
-				Utils utils = new Utils();
-				utils.setNavigationButton(chatId, MAIN_MENU_REF, api);
+//				Utils utils = new Utils();
+				Utils.setNavigationButton(chatId, MAIN_MENU_REF, api);
 				MenuHelper utility = new MenuHelper();
 				api.send(utility.createMainMenuMessage(chatId));
+				
 			}
 
 			@Override
@@ -193,6 +196,18 @@ public class NandboxHelpBot {
 			public void userStoppedBot(User user) {
 				// TODO Auto-generated method stub
 
+			}
+
+			@Override
+			public void onBlackList(BlackList blackList) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onWhiteList(WhiteList whiteList) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		});
