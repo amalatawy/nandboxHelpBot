@@ -218,6 +218,7 @@ public class NandboxHelpBot {
 
 	}
 
+
 	private static String getTokenFromPropFile() throws IOException {
 		Properties prop = new Properties();
 		InputStream input = new FileInputStream("token.properties");
