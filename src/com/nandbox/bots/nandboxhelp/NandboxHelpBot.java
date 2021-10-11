@@ -12,7 +12,9 @@ import static com.nandbox.bots.nandboxhelp.util.MenuHelper.MAIN_MENU_REF;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.nandbox.bots.api.Nandbox;
 import com.nandbox.bots.api.NandboxClient;
@@ -34,10 +36,13 @@ import com.nandbox.bots.nandboxhelp.util.MenuHelper;
 import net.minidev.json.JSONObject;
 
 public class NandboxHelpBot {
+	
+	static AtomicInteger seq = new AtomicInteger();
 
 	public static void main(String[] args) throws Exception {
 
 		String token = NandboxHelpBot.getTokenFromPropFile();
+		
 
 		NandboxClient client = NandboxClient.get();
 		client.connect(token, new Nandbox.Callback() {
@@ -66,7 +71,14 @@ public class NandboxHelpBot {
 			@Override
 			public void onReceive(IncomingMessage incomingMsg) {
 				sendBotMenuWithNavigationButton(incomingMsg.getChat().getId());
-				api.sendText(incomingMsg.getChat().getId(), "Please use Bot Menu");
+				
+				String chatId = incomingMsg.getChat().getId();
+				String userId = incomingMsg.getFrom().getId();
+				
+				if(chatId.equals(userId)) {
+					long reference = getUniqueId();
+					api.sendText(chatId, "Please use Bot Menu", reference, null, userId, null, null, null, null);					
+				}
 			}
 
 			@Override
@@ -77,48 +89,51 @@ public class NandboxHelpBot {
 			public void onChatMenuCallBack(ChatMenuCallback chatMenuCallback) {
 				System.out.println(chatMenuCallback.toJsonObject());
 				String chatId = chatMenuCallback.getChat().getId();
-
+				String userId = chatMenuCallback.getFrom().getId();
+				long reference = getUniqueId();
+				
 				// Group And Channel
 
 				if (chatMenuCallback.getButtonCallback().equals("CreateChannelCB")) {
-
-					api.sendText(chatId, CREATE_CHANNEL_MEDIA_LINK);
+	
+					api.sendText(chatId, CREATE_CHANNEL_MEDIA_LINK, reference, null, userId, null, null, null, null);
 
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("CreateGroupCB")) {
 
-					api.sendText(chatId, CREATE_GROUP_MEDIA_LINK);
+					api.sendText(chatId, CREATE_GROUP_MEDIA_LINK, reference, null, userId, null, null, null, null);
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("DeleteGroupCB")) {
 
-					api.sendText(chatId, DELETE_GROUP_MEDIA_LINK);
+					api.sendText(chatId, DELETE_GROUP_MEDIA_LINK, reference, null, userId, null, null, null, null);
+					
 				}
 
 				// Stickers
 				if (chatMenuCallback.getButtonCallback().equals("UseStickersCB")) {
 
-					api.sendText(chatId, USE_STICKERS_MEDIA_LINK);
+					api.sendText(chatId, USE_STICKERS_MEDIA_LINK, reference, null, userId, null, null, null, null);
 
 				}
 
 				if (chatMenuCallback.getButtonCallback().equals("DownloadStickersCB")) {
 
-					api.sendText(chatId, DOWNLOAD_STICKERS_MEDIA_LINK);
+					api.sendText(chatId, DOWNLOAD_STICKERS_MEDIA_LINK, reference, null, userId, null, null, null, null);
 
 				}
 
 				// Recall
 				if (chatMenuCallback.getButtonCallback().equals("RecallMessageCB")) {
 
-					api.sendText(chatId, RECALL_MSG_MEDIA_LINK);
+					api.sendText(chatId, RECALL_MSG_MEDIA_LINK, reference, null, userId, null, null, null, null);
 				}
 
 				// ShareLocation
 				if (chatMenuCallback.getButtonCallback().equals("ShareLocationCB")) {
 
-					api.sendText(chatId, SHARE_LOCATION_MEDIA_LINK);
+					api.sendText(chatId, SHARE_LOCATION_MEDIA_LINK, reference, null, userId, null, null, null, null);
 				}
 			}
 
@@ -225,5 +240,16 @@ public class NandboxHelpBot {
 		prop.load(input);
 		input.close();
 		return prop.getProperty("Token");
+	}
+	
+	public static int getNext() {
+		int nextVal = seq.incrementAndGet();
+		if (nextVal > 1000)
+			seq.set(0);
+		return nextVal;
+	}
+	
+	public static long getUniqueId() {
+		return Long.parseLong(String.valueOf(Calendar.getInstance().getTimeInMillis()) + getNext());
 	}
 }
